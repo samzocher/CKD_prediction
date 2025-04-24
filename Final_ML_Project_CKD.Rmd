@@ -1,0 +1,43 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(dplyr)
+```
+
+```{r}
+gwas <- read.table("C:/Users/samzo/Downloads/CKD_overall_ALL_JW_20180223_nstud30.dbgap.txt/CKD_overall_ALL_JW_20180223_nstud30.dbgap.txt", header = TRUE, sep = "", dec = ".")
+
+```
+
+
+```{r}
+filtered_gwas <- gwas %>% 
+  filter(P.value < 5e-8) 
+```
+
+
+```{r}
+filtered_gwas
+
+```
+```{r}
+colnames(filtered_gwas) <- c("CHR", "POS", "SNP", "A1", "A2", "FREQ", "BETA", "SE", "P", "n")
+```
+
+
+```{r}
+final_gwas <- filtered_gwas %>% select(-c('n'))
+```
+
+
+```{r}
+final_gwas
+```
+
+```{r}
+write.csv(final_gwas,"C:/Users/samzo/Downloads/gwas_SNPs.csv", row.names = FALSE)
+
+```
+
